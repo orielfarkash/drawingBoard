@@ -68,9 +68,12 @@ function PaintBoard(){
 	self.load=function(){
 		self.clear();
 		var value=localStorage.getItem('picture');
+		if (!value){return;}
 		var img = new Image;
 		img.src = value;
+		img.onload=function(){
 		ctx.drawImage(img,0,0);
+		};
 		
 	};
 	
