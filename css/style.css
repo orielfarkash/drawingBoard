@@ -1,0 +1,37 @@
+	canvas {
+				outline: 1px solid blue;
+				margin-left:100px;
+				margin-top:50px;
+				background-color:white;
+			}
+			.combine-paintings{
+				width:50px;
+				height:50px;
+				position:absolute;
+				margin-top: 150px;
+    			margin-left: 20px;
+    			background-image: url("http://www.clker.com/cliparts/H/D/e/R/O/P/green-plus-sign-md.png");
+    			background-size:cover;
+    			background-color: black;
+    		}
+			.button_panel {
+				padding:20px;
+				background-color: black;
+			}
+			
+			.button_panel button {
+				font-size: 36px;
+				margin: 20px;
+			}
+			
+			.button_panel input {
+				width:50px;
+				height:40px;
+			}
+			
+			body {
+				margin:0;
+				padding:0;
+				background-image: url("https://ariellesophia.files.wordpress.com/2012/07/20120718-222926.jpg");
+				background-size:cover;
+			}
