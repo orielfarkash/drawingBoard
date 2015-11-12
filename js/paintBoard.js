@@ -9,6 +9,7 @@ function PaintBoard(paint){
 	self.el.canvas_board.addEventListener('mousemove',self.mouseIsMoving.bind(this));
 	self.el.canvas_board.addEventListener('mouseup',self.stopPaint.bind(this));
 }
+
 // when user click on the mouse	
 PaintBoard.prototype.mouseIsDown=function(e){
 	var self=this;
@@ -29,8 +30,8 @@ PaintBoard.prototype.mouseIsMoving=function(e){
 		to_where.x=e.offsetX;
 		to_where.y=e.offsetY;
 			
-		self.el.paint.drawing(to_where,color);		
-		}
+		self.el.paint.drawing(to_where,color);
+	}
 };
 	
 // when user release the mouse

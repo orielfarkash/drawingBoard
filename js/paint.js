@@ -1,9 +1,13 @@
-function Paint(canvas){
+function Paint(canvas,channel){
 	var self=this;
 	self.el={};
 	self.el.canvas=canvas;
 	self.el.ctx=canvas.getContext('2d');
+	self.channel=channel;
+	self.toclean=false;
 	Paint.lineWidth=3;
+	self.channel.on('value', self.copy_picture.bind(this));
+	self.channel.set({});
 }
 
 //moving the painter to the start position,from where the user want to paint
@@ -23,6 +27,7 @@ Paint.prototype.drawing=function(to_where,color){
 	ctx.strokeStyle=color;
 	ctx.lineTo(to_where.x,to_where.y);
 	ctx.stroke();
+	self.copy();
 };
 
 //close the drawing path
@@ -30,6 +35,7 @@ Paint.prototype.endDrawing=function(){
 	var self=this;
 	
 	self.el.ctx.closePath();
+	self.copy();
 };
 
 //save the picture in local storage
@@ -48,9 +54,10 @@ Paint.prototype.load=function(loadingName){
 	var img = new Image;
 	img.src = value;
 	
-	self.clear();
 	img.onload=function(){
+		self.clear();
 		self.el.ctx.drawImage(img,0,0);
+		self.copy();
 		};	
 };
 
@@ -69,6 +76,34 @@ Paint.prototype.combinePics=function(p2,p3){
 	
 	img1.src=self.el.canvas.toDataURL();
 	img2.src=p2.el.canvas.toDataURL();
-	p3.el.ctx.drawImage(img1,0,0);
-	p3.el.ctx.drawImage(img2,0,0);
+	p3.clear();
+	img1.onload=function(){
+		p3.el.ctx.drawImage(img1,0,0);
+		p3.copy();
+	};
+	img2.onload=function(){
+		p3.el.ctx.drawImage(img2,0,0);
+		p3.copy();
+	};
 };
+
+//method that copy the picture to firebase databse
+Paint.prototype.copy=function(){
+	var self=this;
+	var img=new Image;
+	
+	img.src=self.el.canvas.toDataURL();
+	self.channel.set({img: img.src });
+};
+
+// method that copy the picture in all browsers
+Paint.prototype.copy_picture=function(data){
+	var self=this;
+	var val=data.val();
+	if (val){
+		var img=new Image;
+		img.src=val.img;
+ 		self.el.ctx.drawImage(img,0,0);	
+ 	}			
+};
+
