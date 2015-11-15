@@ -1,7 +1,7 @@
 # Collaborative drawingBoard
 ##Description
 in this project there is 2  Collaborative painting boards, with the option to combine the 2 Paintings
-into 1.     
+into 1.
 i used this to practice the object-oriented programming and to know how to divide the code into Appropriate classes.
 ##Folder contents
 1. index.html (contains the HTML  )
